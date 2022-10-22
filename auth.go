@@ -20,14 +20,15 @@ type AuthRequest struct {
 type AuthResponse struct {
 }
 
-func Auth(baseUrl string) {
+// 認証API
+func Auth() AuthResponse {
 
 	endpoint := BaseUrl + "api/auth"
 	method := "POST"
 
-	file, err := os.Open("profile.csv") // ファイルを開いて構造体`型`の値を返却する
+	file, err := os.Open("setting.csv") // ファイルを開いて構造体`型`の値を返却する
 	if err != nil {
-		log.Fatalln("faild to read profile.csv")
+		log.Fatalln("faild to read setting.csv")
 	}
 	defer file.Close()
 
@@ -36,30 +37,32 @@ func Auth(baseUrl string) {
 
 	_, err = r.Read()
 	if err != nil {
-		log.Fatalln("faild to read profile.csv")
+		log.Fatalln("faild to read setting.csv")
 	}
 
 	rows, err := r.ReadAll()
 	if err != nil {
-		log.Fatalln("faild to read profile.csv")
+		log.Fatalln("faild to read setting.csv")
 	}
 
-	var Profile []string
+	var Setting []string
 
 	for _, v := range rows {
-		Profile = v
+		Setting = v
 	}
 
 	requestBody := AuthRequest{
-		Id:        Profile[0],
-		Pwd:       Profile[1],
+		Id:        Setting[0],
+		Pwd:       Setting[1],
 		GrantType: "password",
 	}
 
 	encodedJson, err := json.Marshal(requestBody)
 	if err != nil {
-		log.Fatalln("faild to read profile.csv")
+		log.Fatalln("faild to read setting.csv")
 	}
+
+	fmt.Println(string(encodedJson))
 
 	req, err := http.NewRequest(method, endpoint, bytes.NewBuffer(encodedJson))
 	if err != nil {
@@ -82,5 +85,7 @@ func Auth(baseUrl string) {
 	}
 
 	fmt.Println(string(data))
+
+	return AuthResponse{} // 仮で置いてるだけ
 
 }
