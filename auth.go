@@ -1,23 +1,23 @@
 package main
 
 import (
-	"bytes"
 	"encoding/csv"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
+	"net/url"
 	"os"
+	"strings"
 )
 
-type AuthRequest struct {
-	Id        string `json:"id"`
-	Pwd       string `json:"pwd"`
-	GrantType string `json:"grant_type"`
-}
-
 type AuthResponse struct {
+	AccessToken  string `json:"access_token"`
+	TokenType    string `json:"token_type"`
+	ExpiresIn    int    `json:"expires_in"`
+	RefreshToken string `json:"refresh_token"`
+	Issued       string `json:"issued"`
+	Expires      string `json:"expires"`
 }
 
 // 認証API
@@ -51,25 +51,19 @@ func Auth() AuthResponse {
 		Setting = v
 	}
 
-	requestBody := AuthRequest{
-		Id:        Setting[0],
-		Pwd:       Setting[1],
-		GrantType: "password",
-	}
+	form := url.Values{}
+	form.Add("id", Setting[0])
+	form.Add("pwd", Setting[1])
+	form.Add("grant_type", "password")
 
-	encodedJson, err := json.Marshal(requestBody)
-	if err != nil {
-		log.Fatalln("faild to read setting.csv")
-	}
+	body := strings.NewReader(form.Encode())
 
-	fmt.Println(string(encodedJson))
-
-	req, err := http.NewRequest(method, endpoint, bytes.NewBuffer(encodedJson))
+	req, err := http.NewRequest(method, endpoint, body)
 	if err != nil {
 		log.Fatalln("unknown error")
 	}
 
-	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Content-Type", "application/x-wwww-form-unlencoded")
 
 	client := http.Client{}
 	res, err := client.Do(req)
@@ -84,8 +78,13 @@ func Auth() AuthResponse {
 		log.Fatalln(err)
 	}
 
-	fmt.Println(string(data))
+	var authResponse AuthResponse
 
-	return AuthResponse{} // 仮で置いてるだけ
+	err = json.Unmarshal(data, &authResponse)
+	if err != nil {
+		log.Fatalln("faild to read json")
+	}
+
+	return authResponse
 
 }
