@@ -10,10 +10,24 @@ import (
 	"net/http"
 )
 
+const webHookUrl = "https://discord.com/api/webhooks/1033295235188523008/SEneGDA02Lp0M1-NzJuMJxUyC2Dxj2g2Pa8wQafzZWmQf5H_9yuky3uIeZj3AhQqvOkk"
+
 // テスト段階
 func SendWebhook(stock stock.GetStockResponse) {
 
-	webHookUrl := "https://discord.com/api/webhooks/1033295235188523008/SEneGDA02Lp0M1-NzJuMJxUyC2Dxj2g2Pa8wQafzZWmQf5H_9yuky3uIeZj3AhQqvOkk"
+	// type GetStockResponse struct {
+	// 	Count   int `json:"count"`
+	// 	Results Results
+	// }
+
+	// type Results struct {
+	// 	Itemid       string `json:"itemid"`
+	// 	Skuid        string `json:"skuid"`
+	// 	Itemname     string `json:"itemname"`
+	// 	Lot          string `json:"lot"`
+	// 	Stockqty     string `json:"stockqty"`
+	// 	Itemcategory string `json:"itemcategory"`
+	// }
 
 	dw := &DiscordWebhook{UserName: "Egitee"}
 	dw.Embeds = []DiscordEmbed{
