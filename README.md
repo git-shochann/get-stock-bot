@@ -18,5 +18,5 @@ Mac -> dmg ファイルとして配布予定
 
 ```shell
     git clone <this repository>
-    go run .
+    go run main.go
 ```
