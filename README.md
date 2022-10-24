@@ -11,6 +11,12 @@
 ヘッダー行に、`id,password,discordwebhook`
 2 行目以降にデータを記入
 
-## DL 方法
+## DL 方法(暫定 Update Soon)
 
-- exe ファイルとして配布 -> Windows / Mac でも実行可能
+Windows -> exe ファイルとして配布予定
+Mac -> dmg ファイルとして配布予定
+
+```shell
+    git clone <this repository>
+    go run .
+```
