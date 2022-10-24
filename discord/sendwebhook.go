@@ -8,7 +8,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"strconv"
 )
 
 const webHookUrl = "https://discord.com/api/webhooks/1033295235188523008/SEneGDA02Lp0M1-NzJuMJxUyC2Dxj2g2Pa8wQafzZWmQf5H_9yuky3uIeZj3AhQqvOkk"
@@ -34,10 +33,19 @@ func SendWebhook(stock stock.GetStockResponse) {
 	dw := &DiscordWebhook{UserName: "Egitee"}
 	dw.Embeds = []DiscordEmbed{
 		DiscordEmbed{
-			Title:  "残りの在庫数: " + strconv.Itoa(stock.Count),
-			URL:    "https://www.service-netdepot.jp/Contents/StockList.aspx",
-			Color:  3066993,
-			Fields: NewArr,
+			// Title: "残りの在庫数: " + strconv.Itoa(stock.Count),
+			Title: "残りの在庫数: 100",
+			URL:   "https://www.service-netdepot.jp/Contents/StockList.aspx",
+			Color: 3066993,
+			// Fields: NewArr,
+			Fields: []DiscordField{
+				{Name: "品番1", Value: "Dior B23 Sneaker", Inline: true},
+				{Name: "品番2", Value: "Dior B23 Sneaker", Inline: true},
+				{Name: "品番3", Value: "Dior B23 Sneaker", Inline: true},
+				{Name: "品番4", Value: "Dior B23 Sneaker", Inline: true},
+				{Name: "品番5", Value: "Dior B23 Sneaker", Inline: true},
+				{Name: "品番6", Value: "Dior B23 Sneaker", Inline: true},
+			},
 		},
 	}
 
