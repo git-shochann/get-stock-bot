@@ -9,7 +9,7 @@ import (
 )
 
 type GetStockResponse struct {
-	Count   int `json:"count"` // 全体在庫数のカウント
+	Count   int `json:"count"`
 	Results Results
 }
 
