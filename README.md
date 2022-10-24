@@ -14,6 +14,7 @@
 ## DL 方法(暫定)
 
 Windows -> exe ファイルとして配布予定
+
 Mac -> dmg ファイルとして配布予定
 
 ```shell
