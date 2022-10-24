@@ -16,31 +16,28 @@ const webHookUrl = "https://discord.com/api/webhooks/1033295235188523008/SEneGDA
 // テスト段階
 func SendWebhook(stock stock.GetStockResponse) {
 
-	var A DiscordField
+	var Df DiscordField
 	var NewArr []DiscordField
 
 	// 1個でまずは処理を考えてみること
 	for _, v := range stock.Results {
-		// 整形した1つの構造体データ
-		A = DiscordField{
+		// 必要なデータのみ抽出する
+		Df = DiscordField{
 			Name:   v.Itemname,
-			Value:  v.Stockqty,
+			Value:  v.Stockqty + "個",
 			Inline: true,
 		}
-		fmt.Println(A)
-		NewArr = append(NewArr)
-		fmt.Println(NewArr)
+		// 以下で渡す配列に1つの構造体のデータを加えて新しく作成する
+		NewArr = append(NewArr, Df)
 	}
 
 	dw := &DiscordWebhook{UserName: "Egitee"}
 	dw.Embeds = []DiscordEmbed{
 		DiscordEmbed{
-			Title: "残りの在庫数: " + strconv.Itoa(stock.Count),
-			URL:   "https://www.service-netdepot.jp/Contents/StockList.aspx",
-			Color: 3066993,
-			Fields: []DiscordField{
-				{Name: "Testing", Value: "this is testing", Inline: true},
-			},
+			Title:  "残りの在庫数: " + strconv.Itoa(stock.Count),
+			URL:    "https://www.service-netdepot.jp/Contents/StockList.aspx",
+			Color:  3066993,
+			Fields: NewArr,
 		},
 	}
 
