@@ -1,16 +1,18 @@
 package main
 
-import "get-stock-bot/discord"
-
-const BaseUrl = "https://www.service-netdepot.jp/NetDepotWebAPI/"
+import (
+	"get-stock-bot/auth"
+	"get-stock-bot/discord"
+	"get-stock-bot/stock"
+)
 
 func main() {
 
 	// APIを使うための準備
-	authResponse := Auth()
+	authResponse := auth.Auth()
 
 	// 全在庫取得
-	getStockResponse := GetStock(authResponse)
+	getStockResponse := stock.GetStock(authResponse)
 
 	// WebHook送信
 	discord.SendWebhook(getStockResponse)

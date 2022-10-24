@@ -1,8 +1,10 @@
-package main
+package stock
 
 import (
 	"encoding/json"
 	"fmt"
+	"get-stock-bot/auth"
+	"get-stock-bot/util"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -23,9 +25,9 @@ type Results struct {
 }
 
 // 在庫を取得する
-func GetStock(auth AuthResponse) GetStockResponse {
+func GetStock(auth auth.AuthResponse) GetStockResponse {
 
-	endpoint := BaseUrl + "api/stockresult"
+	endpoint := util.BaseUrl + "api/stockresult"
 	method := "GET"
 	bearerToken := "Bearer " + auth.AccessToken
 

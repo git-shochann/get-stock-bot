@@ -1,8 +1,9 @@
-package main
+package auth
 
 import (
 	"encoding/csv"
 	"encoding/json"
+	"get-stock-bot/util"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -23,7 +24,7 @@ type AuthResponse struct {
 // 認証API
 func Auth() AuthResponse {
 
-	endpoint := BaseUrl + "api/auth"
+	endpoint := util.BaseUrl + "api/auth"
 	method := "POST"
 
 	file, err := os.Open("setting.csv") // ファイルを開いて構造体`型`の値を返却する

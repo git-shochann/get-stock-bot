@@ -4,13 +4,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"get-stock-bot/stock"
 	"io/ioutil"
 	"log"
 	"net/http"
 )
 
 // テスト段階
-func SendWebhook(stock GetStockResponse) {
+func SendWebhook(stock stock.GetStockResponse) {
 
 	webHookUrl := "https://discord.com/api/webhooks/1033295235188523008/SEneGDA02Lp0M1-NzJuMJxUyC2Dxj2g2Pa8wQafzZWmQf5H_9yuky3uIeZj3AhQqvOkk"
 
