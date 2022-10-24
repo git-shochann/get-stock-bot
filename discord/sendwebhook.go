@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strconv"
 )
 
 const webHookUrl = "https://discord.com/api/webhooks/1033295235188523008/SEneGDA02Lp0M1-NzJuMJxUyC2Dxj2g2Pa8wQafzZWmQf5H_9yuky3uIeZj3AhQqvOkk"
@@ -15,29 +16,25 @@ const webHookUrl = "https://discord.com/api/webhooks/1033295235188523008/SEneGDA
 // テスト段階
 func SendWebhook(stock stock.GetStockResponse) {
 
-	// type GetStockResponse struct {
-	// 	Count   int `json:"count"`
-	// 	Results Results
-	// }
+	var Data DiscordField
 
-	// type Results struct {
-	// 	Itemid       string `json:"itemid"`
-	// 	Skuid        string `json:"skuid"`
-	// 	Itemname     string `json:"itemname"`
-	// 	Lot          string `json:"lot"`
-	// 	Stockqty     string `json:"stockqty"`
-	// 	Itemcategory string `json:"itemcategory"`
-	// }
+	// 1個でまずは処理を考えてみること
+	for _, v := range stock.Results {
+		Data = DiscordField{
+			Name:   v.Itemname,
+			Value:  v.Stockqty,
+			Inline: true,
+		}
+	}
 
 	dw := &DiscordWebhook{UserName: "Egitee"}
 	dw.Embeds = []DiscordEmbed{
 		DiscordEmbed{
-			Title: "残りの在庫",
+			Title: "残りの在庫数: " + strconv.Itoa(stock.Count),
 			URL:   "https://www.service-netdepot.jp/Contents/StockList.aspx",
 			Color: 3066993,
 			Fields: []DiscordField{
-				DiscordField{Name: "品番1", Value: "XXX", Inline: true},
-				DiscordField{Name: "品番2", Value: "XXX", Inline: true},
+				Data,
 			},
 		},
 	}

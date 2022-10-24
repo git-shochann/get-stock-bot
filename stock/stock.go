@@ -12,7 +12,7 @@ import (
 
 type GetStockResponse struct {
 	Count   int `json:"count"`
-	Results Results
+	Results []Results
 }
 
 type Results struct {
