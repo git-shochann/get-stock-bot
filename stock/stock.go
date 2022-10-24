@@ -2,7 +2,6 @@ package stock
 
 import (
 	"encoding/json"
-	"fmt"
 	"get-stock-bot/auth"
 	"get-stock-bot/util"
 	"io/ioutil"
@@ -30,8 +29,6 @@ func GetStock(auth auth.AuthResponse) GetStockResponse {
 	endpoint := util.BaseUrl + "api/stockresult"
 	method := "GET"
 	bearerToken := "Bearer " + auth.AccessToken
-
-	fmt.Println(bearerToken)
 
 	req, err := http.NewRequest(method, endpoint, nil)
 	if err != nil {

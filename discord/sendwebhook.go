@@ -16,15 +16,20 @@ const webHookUrl = "https://discord.com/api/webhooks/1033295235188523008/SEneGDA
 // テスト段階
 func SendWebhook(stock stock.GetStockResponse) {
 
-	var Data DiscordField
+	var A DiscordField
+	var NewArr []DiscordField
 
 	// 1個でまずは処理を考えてみること
 	for _, v := range stock.Results {
-		Data = DiscordField{
+		// 整形した1つの構造体データ
+		A = DiscordField{
 			Name:   v.Itemname,
 			Value:  v.Stockqty,
 			Inline: true,
 		}
+		fmt.Println(A)
+		NewArr = append(NewArr)
+		fmt.Println(NewArr)
 	}
 
 	dw := &DiscordWebhook{UserName: "Egitee"}
@@ -34,7 +39,7 @@ func SendWebhook(stock stock.GetStockResponse) {
 			URL:   "https://www.service-netdepot.jp/Contents/StockList.aspx",
 			Color: 3066993,
 			Fields: []DiscordField{
-				Data,
+				{Name: "Testing", Value: "this is testing", Inline: true},
 			},
 		},
 	}
