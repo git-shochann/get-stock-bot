@@ -18,6 +18,7 @@ func SendWebhook(stock stock.GetStockResponse) {
 
 	var Df DiscordField
 	var NewArr []DiscordField
+	var AllStock int
 
 	// 1個でまずは処理を考えてみること
 	for _, v := range stock.Results {
@@ -27,6 +28,12 @@ func SendWebhook(stock stock.GetStockResponse) {
 			Value:  v.Stockqty + "個",
 			Inline: true,
 		}
+		stock, err := strconv.Atoi(v.Stockqty)
+		if err != nil {
+			fmt.Println("convert error")
+			return
+		}
+		AllStock += stock
 		// 以下で渡す配列に1つの構造体のデータを加えて新しく作成する
 		NewArr = append(NewArr, Df)
 	}
@@ -34,7 +41,7 @@ func SendWebhook(stock stock.GetStockResponse) {
 	dw := &DiscordWebhook{UserName: "Egitee"}
 	dw.Embeds = []DiscordEmbed{
 		DiscordEmbed{
-			Title:  "残りの在庫数: " + strconv.Itoa(stock.Count),
+			Title:  "残りの在庫数: " + strconv.Itoa(AllStock),
 			URL:    "https://www.service-netdepot.jp/Contents/StockList.aspx",
 			Color:  3066993,
 			Fields: NewArr,
