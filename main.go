@@ -29,5 +29,6 @@ func init() {
 	setting := csv.LoadCSV()
 	monitorDelay := setting[3]
 	c.AddFunc("@every "+monitorDelay+"s", main)
+	c.Start()
 	runtime.Goexit()
 }
