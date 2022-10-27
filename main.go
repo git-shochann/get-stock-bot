@@ -23,7 +23,7 @@ func main() {
 
 }
 
-// 定期実行させる
+// 定期実行する
 func init() {
 	c := cron.New()
 	setting := csv.LoadCSV()
