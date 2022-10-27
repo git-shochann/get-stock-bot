@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"get-stock-bot/csv"
 	"get-stock-bot/stock"
 	"io/ioutil"
 	"log"
@@ -11,9 +12,6 @@ import (
 	"strconv"
 )
 
-const webHookUrl = "https://discord.com/api/webhooks/1033295235188523008/SEneGDA02Lp0M1-NzJuMJxUyC2Dxj2g2Pa8wQafzZWmQf5H_9yuky3uIeZj3AhQqvOkk"
-
-// テスト段階
 func SendWebhook(stock stock.GetStockResponse) {
 
 	var Df DiscordField
@@ -54,7 +52,10 @@ func SendWebhook(stock stock.GetStockResponse) {
 		return
 	}
 
-	req, err := http.NewRequest("POST", webHookUrl, bytes.NewBuffer(j))
+	// discord webhookの取得
+	setting := csv.LoadCSV()
+
+	req, err := http.NewRequest("POST", setting[2], bytes.NewBuffer(j))
 	if err != nil {
 		fmt.Println("new request err:", err)
 		return
