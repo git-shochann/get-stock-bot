@@ -8,7 +8,7 @@
 
 手動で用意するなら...
 
-ヘッダー行に、`id,password,discordwebhook`
+ヘッダー行に、`ID,PassWord,discordWebHook,monitorDelay`
 2 行目以降にデータを記入
 
 ## DL 方法(暫定)
