@@ -8,16 +8,16 @@
 
 手動で用意するなら...
 
-ヘッダー行に、`ID,PassWord,discordWebHook,monitorDelay`
-2 行目以降にデータを記入
+ヘッダー行に、`ID,PassWord,discordWebHook,monitorDelay`を入れ、CSV 形式で
+2 行目にデータを記入
 
 ## DL 方法(暫定)
-
-Windows -> exe ファイルとして配布予定
-
-Mac -> dmg ファイルとして配布予定
 
 ```shell
     git clone <this repository>
     go run main.go
 ```
+
+Windows -> exe ファイルとして配布予定
+
+Mac -> dmg ファイルとして配布予定
