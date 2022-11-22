@@ -2,7 +2,6 @@ package auth
 
 import (
 	"encoding/json"
-	"get-stock-bot/csv"
 	"get-stock-bot/util"
 	"io/ioutil"
 	"log"
@@ -21,12 +20,10 @@ type AuthResponse struct {
 }
 
 // 認証API
-func Auth() AuthResponse {
+func Auth(setting []string) AuthResponse {
 
 	endpoint := util.BaseUrl + "api/auth"
 	method := "POST"
-
-	setting := csv.LoadCSV()
 
 	form := url.Values{}
 	form.Add("id", setting[0])
