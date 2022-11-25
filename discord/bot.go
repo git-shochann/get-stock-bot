@@ -53,7 +53,7 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 	Setting := csv.LoadCSV()
 	authResponse := auth.Auth(Setting)
 	getStockResponse := stock.GetStock(authResponse)
-	message := SendMessage(getStockResponse)
+	message := CreateMessage(getStockResponse)
 	_, _ = s.ChannelMessageSendEmbed(m.ChannelID, message)
 	// }
 
