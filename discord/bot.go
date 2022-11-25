@@ -44,13 +44,17 @@ func StartBot() {
 }
 
 func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
+
 	if m.Author.ID == BotID {
 		return
 	}
-	if m.Content == "!stock" {
-		authResponse := auth.Auth(Setting)
-		getStockResponse := stock.GetStock(authResponse)
-		SendMessage(getStockResponse)
-		_, _ = s.ChannelMessageSendEmbed(m.ChannelID)
-	}
+
+	// if m.Content == "!stock" {
+	Setting := csv.LoadCSV()
+	authResponse := auth.Auth(Setting)
+	getStockResponse := stock.GetStock(authResponse)
+	message := SendMessage(getStockResponse)
+	_, _ = s.ChannelMessageSendEmbed(m.ChannelID, message)
+	// }
+
 }

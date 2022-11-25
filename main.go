@@ -1,19 +1,17 @@
 package main
 
 import (
-	"get-stock-bot/csv"
 	"get-stock-bot/discord"
 )
 
 func main() {
 
 	// CSV読み込み
-	setting := csv.LoadCSV()
+	// setting := csv.LoadCSV()
 
 	// discordBot起動
-	discord.StartBot(setting)
+	discord.StartBot()
 	<-make(chan struct{})
-	return
 
 	// APIを使うための準備
 	// authResponse := auth.Auth(setting)
