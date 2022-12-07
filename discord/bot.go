@@ -39,15 +39,17 @@ func StartBot() {
 		log.Fatalln(err)
 	}
 
-	fmt.Println("Bot is running!")
-
 }
 
 func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 
+	s.Identify.Intents |= discordgo.IntentMessageContent
+
 	if m.Author.ID == BotID {
 		return
 	}
+
+	fmt.Printf("m.Content: %v\n", m.Content) // BUG なぜ中身が取れてない？ !stockと取得したい
 
 	// if m.Content == "!stock" {
 	Setting := csv.LoadCSV()
